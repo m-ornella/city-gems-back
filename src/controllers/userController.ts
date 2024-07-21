@@ -38,3 +38,9 @@ export const createUser = async (req: Request, res: Response) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+export const getUsers = async(req: Request, res: Response) => {
+
+  const users = await prisma.user.findMany();
+  return res.status(200).json(users);
+} 
