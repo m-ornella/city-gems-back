@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { PrismaClient } from "@prisma/client";
 import authRoutes from './routes/authRoutes';
+import userRoutes from './routes/userRoutes';
 
 
 export const prisma = new PrismaClient();
@@ -13,6 +14,7 @@ app.use(express.json());
 
 // Use the user routes
 app.use('/api', authRoutes);
+app.use('/api', userRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!!!!');
