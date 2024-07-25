@@ -52,10 +52,11 @@ export const loginUser = async (req: Request, res: Response) => {
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
+      console.log('Password mismatch:', password, user.password);
       return res.status(400).json({ error: 'Invalid email or password' });
     }
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET!, {
+    const token = jwt.sign({ userId: user.id }, process.env.JWT_KEY!, {
       expiresIn: '1h',
     });
 
@@ -65,3 +66,4 @@ export const loginUser = async (req: Request, res: Response) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
+
