@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../server';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
@@ -35,7 +35,7 @@ export const registerUser = async (req: Request, res: Response) => {
   }
 };
 
-export const loginUser = async (req: Request, res: Response) => {
+export const loginUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const { email, password } = req.body;
 
@@ -55,14 +55,12 @@ export const loginUser = async (req: Request, res: Response) => {
       return res.status(400).json({ error: 'Invalid email or password' });
     }
 
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_KEY!, {
-      expiresIn: '1h',
-    });
 
-    return res.status(200).json({ token });
+    req.body.userId = user.id;
+    
+    next();
   } catch (error) {
-    console.error('Error details:', error);
+    console.error('Error during login:', error);
     return res.status(500).json({ error: 'Internal server error' });
   }
 };
-
