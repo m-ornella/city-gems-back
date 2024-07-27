@@ -3,19 +3,19 @@ import 'dotenv/config';
 import { PrismaClient } from "@prisma/client";
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
-
+import restaurantRoutes from './routes/restaurantRoutes';
 
 export const prisma = new PrismaClient();
 
 const app = express();
 const port = 3000;
 
-// Middleware to parse JSON bodies
 app.use(express.json());
 
-// Use the user routes
+
 app.use('/api', authRoutes);
 app.use('/api', userRoutes);
+app.use('/api', restaurantRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!!!!');
