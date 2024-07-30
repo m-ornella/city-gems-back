@@ -1,11 +1,12 @@
 model Restaurant {
-  id       Int      @id @default(autoincrement())
-  name String
-  address String
-  cuisine_category  String
-  budget    BudgetCategory
-  website_link String
-  created_at DateTime   @default(now())   @map("created_at")
+  id              Int           @id @default(autoincrement())
+  name            String
+  address         String
+  category        foodType      @relation(fields: [category_id], references: [id])
+  category_id     Int
+  budget          BudgetCategory
+  website_link    String
+  created_at      DateTime      @default(now()) @map("created_at")
 
   @@map("restaurants")
 }

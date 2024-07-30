@@ -13,12 +13,12 @@ export const getRestaurants = async (req: Request, res: Response) => {
 
 export const createRestaurants = async (req: Request, res: Response) => {
     try {
-        const { name, address, cuisine_category, budget, website_link } = req.body;
+        const { name, address, category_id, budget, website_link } = req.body;
         const restaurant = await prisma.restaurant.create({
             data: {
                 name,
                 address,
-                cuisine_category,
+                category_id,
                 budget,
                 website_link
             }
