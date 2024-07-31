@@ -1,35 +1,22 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-// Generate access token
-function generateAccessToken(userId: number) {
-  return jwt.sign({ userId }, process.env.JWT_KEY!, {
-    expiresIn: '5m',
-  });
-}
+// Middleware to authenticate token
+export const authenticateUser = (req: Request, res: Response, next: NextFunction) => {
+  const authHeader = req.headers['authorization'];
+  const token = authHeader && authHeader.split(' ')[1];
 
-// Generate refresh token
-function generateRefreshToken(userId: number, jti: string) {
-  return jwt.sign({ userId, jti }, process.env.JWT_REFRESH_KEY!, {
-    expiresIn: '8h',
-  });
-}
+  if (!token) {
+    return res.status(401).json({ message: 'No token provided, authorization denied' });
+  }
 
-export const generateTokensMiddleware = (req: Request, res: Response) => {
-  try {
-    const userId = req.body.userId;
-
-    if (!userId) {
-      return res.status(400).json({ error: 'User ID not found' });
+  jwt.verify(token, process.env.JWT_KEY!, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ message: 'Invalid token, authorization denied' });
     }
 
-    const jti = jwt.sign({}, process.env.JWT_REFRESH_KEY!, { expiresIn: '1s' });
-    const accessToken = generateAccessToken(userId);
-    const refreshToken = generateRefreshToken(userId, jti);
-
-    res.json({ accessToken, refreshToken });
-  } catch (error) {
-    console.error('Error generating tokens:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
+   
+    req.body.userId = (decoded as any).userId;
+    next();
+  });
 };

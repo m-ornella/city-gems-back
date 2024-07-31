@@ -6,6 +6,7 @@ import userRoutes from './routes/userRoutes';
 import restaurantRoutes from './routes/restaurantRoutes';
 import foodTypeRoutes from './routes/foodTypeRoutes';
 
+
 export const prisma = new PrismaClient();
 
 const app = express();
@@ -15,6 +16,8 @@ app.use(express.json());
 
 
 app.use('/api', authRoutes);
+
+
 app.use('/api', userRoutes);
 app.use('/api', restaurantRoutes);
 app.use('/api', foodTypeRoutes)
