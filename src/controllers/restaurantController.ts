@@ -29,3 +29,17 @@ export const createRestaurants = async (req: Request, res: Response) => {
         return res.status(500).json({ error: 'Internal server error' });
     }
 }
+
+export const getRestaurantById = async (req: Request, res: Response) => {
+    try {
+        const { id } = req.params;
+        const restaurant = await prisma.restaurant.findUnique({ where: { id: Number(id) } });
+        if (!restaurant) {
+            return res.status(404).json({ error: 'Restaurant not found' });
+        }
+        return res.status(200).json(restaurant);
+    } catch (error) {
+        console.error('Error details:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+    }
+}
