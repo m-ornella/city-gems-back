@@ -1,19 +1,7 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { generateAccessToken, generateRefreshToken, validateToken } from '../utils/token';
 
-// Generate access token
-function generateAccessToken(userId: number) {
-  return jwt.sign({ userId }, process.env.JWT_KEY!, {
-    expiresIn: '5m',
-  });
-}
-
-// Generate refresh token
-function generateRefreshToken(userId: number, jti: string) {
-  return jwt.sign({ userId, jti }, process.env.JWT_REFRESH_KEY!, {
-    expiresIn: '8h',
-  });
-}
 
 export const generateTokensMiddleware = (req: Request, res: Response) => {
   try {

@@ -1,0 +1,13 @@
+model RevokedToken {
+  id         Int      @id @default(autoincrement())
+  token      String   @db.VarChar(2048)
+  userId     Int
+  expires_at  DateTime
+  created_at  DateTime @default(now())
+  
+  user       User     @relation(fields: [userId], references: [id]) 
+
+  @@index([token(length: 255)], name: "idx_token_prefix")
+
+  @@map("revoked_tokens")  // Maps the model to your existing table name
+}

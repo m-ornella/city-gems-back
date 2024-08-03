@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { prisma } from '../server';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import { validateToken, revokeToken, isTokenRevoked } from '../utils/token';
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
@@ -62,5 +63,31 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
   } catch (error) {
     console.error('Error during login:', error);
     return res.status(500).json({ error: 'Internal server error' });
+  }
+};
+
+export const logoutUser = async (req: Request, res: Response) => {
+  try {
+    const { refreshToken, userId } = req.body;
+
+   
+    if (!refreshToken || !userId) {
+      return res.status(400).json({ error: 'Refresh token and user ID are required' });
+    }
+
+   
+    await revokeToken(refreshToken, userId, new Date());
+
+    return res.status(200).json({ message: 'Logged out successfully' });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+    
+      console.error('Error during logout:', error.message);
+      return res.status(400).json({ error: error.message });
+    } else {
+     
+      console.error('Unexpected error during logout:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
   }
 };
