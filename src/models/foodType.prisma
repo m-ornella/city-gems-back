@@ -1,5 +1,5 @@
 
-model foodType {
+model FoodType {
   id              Int           @id @default(autoincrement())
   name            String
   created_at      DateTime      @default(now()) @map("created_at")

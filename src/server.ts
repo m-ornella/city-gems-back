@@ -5,6 +5,8 @@ import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
 import restaurantRoutes from './routes/restaurantRoutes';
 import foodTypeRoutes from './routes/foodTypeRoutes';
+import favouriteRoutes from './routes/favouriteRoutes';
+import { authenticateUser } from './middleware/auth';
 
 
 export const prisma = new PrismaClient();
@@ -21,6 +23,7 @@ app.use('/api', authRoutes);
 app.use('/api', userRoutes);
 app.use('/api', restaurantRoutes);
 app.use('/api', foodTypeRoutes)
+app.use('/api', authenticateUser, favouriteRoutes)
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!!!!');
