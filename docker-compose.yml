@@ -22,6 +22,7 @@ services:
       - "3004:3000"
     environment:
       DB_HOST: citygems_db
+      JWT_KEY: ${JWT_KEY}
     depends_on:
       - citygems_db
     
