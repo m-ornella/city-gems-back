@@ -43,9 +43,12 @@ jobs:
 
     - name: Build and run containers using Docker Compose
       run: docker compose up -d --build
+      env:
+        MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+        MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
 
     - name: Wait for containers to be ready
-      run: sleep 10
+      run: sleep 30  # Adjust as needed based on your setup
 
     - name: Check Docker Compose status
       run: docker compose ps
