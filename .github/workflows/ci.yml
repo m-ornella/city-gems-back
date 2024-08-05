@@ -13,14 +13,6 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    services:
-      docker:
-        image: docker:20.10.7
-        options: --privileged
-        ports:
-          - 3306:3306
-          - 3004:3000
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -43,13 +35,12 @@ jobs:
 
     - name: Build and run containers using Docker Compose
       run: docker-compose up -d --build
+      env:
+        MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+        MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
 
     - name: Install dependencies in node_api container
-      run: docker exec -it node_api npm ci
+      run: docker-compose exec -T citygems_api npm ci
 
     - name: Run tests in node_api container
-      run: docker exec -it node_api npm test
-      
-    - name: Install dependencies in node_api container
-      run: docker
-
+      run: docker-compose exec -T citygems_api npm test
