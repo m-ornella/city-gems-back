@@ -6,8 +6,6 @@ services:
       - db_data:/var/lib/mysql
     ports:
       - "3306:3306"
-    env_file: 
-      - .env
     environment:
       MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
       MYSQL_DATABASE: "${MYSQL_DATABASE}"
@@ -22,8 +20,6 @@ services:
     container_name: node_api
     ports:
       - "3004:3000"
-    env_file: 
-      - .env
     environment:
       DB_HOST: citygems_db
     depends_on:
