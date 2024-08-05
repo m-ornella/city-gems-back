@@ -5,21 +5,13 @@ name: CI Workflow
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "ci-workflow" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "ci-workflow" ]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-
-    services:
-      docker:
-        image: docker:20.10.7
-        options: --privileged
-        ports:
-          - 3306:3306
-          - 3004:3000
 
     steps:
     - name: Checkout repository
@@ -49,7 +41,7 @@ jobs:
         JWT_KEY: ${{ secrets.JWT_KEY }}
 
     - name: Wait for containers to be ready
-      run: sleep 30  # Adjust as needed based on your setup
+      run: sleep 30
 
     - name: Check Docker Compose status
       run: docker compose ps
@@ -62,5 +54,7 @@ jobs:
       env:
         JWT_KEY: ${{ secrets.JWT_KEY }}
 
-    # Removed the test step as per previous adjustments
-
+    - name: Run tests in citygems_api container
+      run: docker compose exec -T citygems_api npm test
+      env:
+        JWT_KEY: ${{ secrets.JWT_KEY }}
