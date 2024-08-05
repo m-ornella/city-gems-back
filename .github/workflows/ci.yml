@@ -46,6 +46,7 @@ jobs:
       env:
         MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
         MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+        JWT_KEY: ${{ secrets.JWT_KEY }}
 
     - name: Wait for containers to be ready
       run: sleep 30  # Adjust as needed based on your setup
@@ -61,10 +62,11 @@ jobs:
       env:
         MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
         MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+        JWT_KEY: ${{ secrets.JWT_KEY }}
 
     - name: Run tests in citygems_api container
       run: docker compose exec -T citygems_api npm test
       env:
         MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
         MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
-
+        JWT_KEY: ${{ secrets.JWT_KEY }}
