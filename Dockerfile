@@ -3,7 +3,7 @@ FROM node:21
 WORKDIR /src
 
 # Copy package.json and yarn.lock files first to leverage Docker cache
-COPY package*.json yarn.lock ./
+COPY package.json package-lock.json ./
 
 # Install dependencies
 RUN yarn install
