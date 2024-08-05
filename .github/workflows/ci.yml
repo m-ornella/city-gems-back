@@ -53,8 +53,12 @@ jobs:
     - name: Wait for container to be ready
       run: sleep 10
 
+    - name: Run container interactively for debugging
+      run: docker-compose run --service-ports citygems_api /bin/bash
+
     - name: Install dependencies in citygems_api container
       run: docker-compose exec -T citygems_api npm ci
 
     - name: Run tests in citygems_api container
       run: docker-compose exec -T citygems_api npm test
+
