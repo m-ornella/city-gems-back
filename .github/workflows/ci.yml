@@ -44,18 +44,24 @@ jobs:
     - name: Build and run containers using Docker Compose
       run: docker compose up -d --build
 
+    - name: Wait for containers to be ready
+      run: sleep 10
+
     - name: Check Docker Compose status
       run: docker compose ps
 
     - name: Check logs for citygems_api
       run: docker compose logs citygems_api
 
-    - name: Wait for container to be ready
-      run: sleep 10
-
     - name: Install dependencies in citygems_api container
       run: docker compose exec -T citygems_api npm ci
+      env:
+        MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+        MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
 
     - name: Run tests in citygems_api container
       run: docker compose exec -T citygems_api npm test
+      env:
+        MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
+        MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
 
