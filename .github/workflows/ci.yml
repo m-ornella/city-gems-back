@@ -50,9 +50,11 @@ jobs:
     - name: Check logs for citygems_api
       run: docker-compose logs citygems_api
 
+    - name: Wait for container to be ready
+      run: sleep 10
+
     - name: Install dependencies in citygems_api container
       run: docker-compose exec -T citygems_api npm ci
 
     - name: Run tests in citygems_api container
       run: docker-compose exec -T citygems_api npm test
-
