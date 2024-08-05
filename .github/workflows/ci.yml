@@ -58,15 +58,13 @@ jobs:
       run: docker compose logs citygems_api
 
     - name: Install dependencies in citygems_api container
-      run: docker compose exec -T citygems_api npm ci
+      run: |
+        docker compose exec -T citygems_api npm install
+        docker compose exec -T citygems_api npm ci
       env:
-        MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-        MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
         JWT_KEY: ${{ secrets.JWT_KEY }}
 
     - name: Run tests in citygems_api container
       run: docker compose exec -T citygems_api npm test
       env:
-        MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-        MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
         JWT_KEY: ${{ secrets.JWT_KEY }}
