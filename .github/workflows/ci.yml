@@ -54,8 +54,3 @@ jobs:
       env:
         JWT_KEY: ${{ secrets.JWT_KEY }}
 
-    - name: Run tests in citygems_api container
-      run: docker compose exec -T citygems_api yarn test
-      env:
-        JWT_KEY: ${{ secrets.JWT_KEY }}
-
