@@ -3,14 +3,14 @@ import { prisma } from '../server';
 
 export const addToFavourites = async (req: Request, res: Response) => {
     try {
-        const { user, restaurant } = req.body;
+        const { user, attraction } = req.body;
         const favourite = await prisma.favourite.create({
             data: {
                 user: {
                   connect: { id: user }
                 },
-                restaurant: {
-                  connect: { id: restaurant }
+                attraction: {
+                  connect: { id:attraction }
                 },
             }
         });
