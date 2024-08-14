@@ -3,11 +3,10 @@ import 'dotenv/config';
 import { PrismaClient } from "@prisma/client";
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
-import restaurantRoutes from './routes/restaurantRoutes';
-import foodTypeRoutes from './routes/foodTypeRoutes';
+import attractionRoutes from './routes/attractionRoutes';
+import attractionCategoryRoutes from './routes/attractionCategoryRoutes';
 import favouriteRoutes from './routes/favouriteRoutes';
 import { authenticateUser } from './middleware/auth';
-
 
 export const prisma = new PrismaClient();
 
@@ -16,14 +15,12 @@ const port = 3000;
 
 app.use(express.json());
 
-
+// Mounting routes
 app.use('/api', authRoutes);
-
-
 app.use('/api', userRoutes);
-app.use('/api', restaurantRoutes);
-app.use('/api', foodTypeRoutes)
-app.use('/api', authenticateUser, favouriteRoutes)
+app.use('/api', attractionRoutes);
+app.use('/api', attractionCategoryRoutes);
+app.use('/api', authenticateUser, favouriteRoutes);
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!!!!');
@@ -37,4 +34,3 @@ app.listen(port, (err?: Error) => {
     console.log('Routes mounted');
   }
 });
-console.log('Routes mounted');

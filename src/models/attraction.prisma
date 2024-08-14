@@ -1,8 +1,8 @@
-model Restaurant {
+model Attraction {
   id              Int           @id @default(autoincrement())
   name            String
   address         String
-  category        FoodType      @relation(fields: [category_id], references: [id])
+  category        AttractionCategory      @relation(fields: [category_id], references: [id])
   category_id     Int
   budget          BudgetCategory
   website_link    String
@@ -10,10 +10,11 @@ model Restaurant {
 
   Favourite       Favourite[]
 
-  @@map("restaurants")
+  @@map("attractions")
 }
 
 enum BudgetCategory {
+  FREE
   CHEAP
   STANDARD
   EXPENSIVE

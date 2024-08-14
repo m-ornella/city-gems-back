@@ -1,26 +1,25 @@
 import { Request, Response } from 'express';
 import { prisma } from '../server';
 
-
-export const getFoodTypes = async (req: Request, res: Response) => {
+export const getAttractionCategories = async (req: Request, res: Response) => {
     try {
-        const foodTypes = await prisma.foodType.findMany();
-        return res.status(200).json(foodTypes);
+        const attractionCategories = await prisma.attractionCategory.findMany();
+        return res.status(200).json(attractionCategories);
     } catch (error) {
         console.error('Error details:', error);
         return res.status(500).json({ error: 'Internal server error' });
     }
 };
 
-export const createFoodType = async (req: Request, res: Response) => {
+export const createAttractionCategory = async (req: Request, res: Response) => {
     try {
         const { name } = req.body;
-        const foodType = await prisma.foodType.create({
+        const attractionCategory = await prisma.attractionCategory.create({
             data: {
                 name
             }
         });
-        return res.status(201).json(foodType);
+        return res.status(201).json(attractionCategory);
     } catch (error) {
         console.error('Error details:', error);
         return res.status(500).json({ error: 'Internal server error' });
