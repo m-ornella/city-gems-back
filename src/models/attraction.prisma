@@ -9,8 +9,10 @@ model Attraction {
   created_at      DateTime      @default(now()) @map("created_at")
 
   Favourite       Favourite[]
+  images          Image[]        @relation("AttractionImages")
 
   @@map("attractions")
+
 }
 
 enum BudgetCategory {

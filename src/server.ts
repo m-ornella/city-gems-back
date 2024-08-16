@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import 'dotenv/config';
+import cors from 'cors';
 import { PrismaClient } from "@prisma/client";
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
@@ -14,6 +15,14 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+};
+
+app.use(cors(corsOptions)); 
 
 // Mounting routes
 app.use('/api', authRoutes);

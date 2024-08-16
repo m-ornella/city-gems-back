@@ -1,0 +1,13 @@
+model Image {
+  id            Int            @id @default(autoincrement())
+  url           String
+  attraction_id Int             @map("attraction_id")
+  user_id       Int?            @map("user_id")
+  createdAt     DateTime        @default(now()) @map("created_at")
+
+  // Relations
+  attraction    Attraction      @relation("AttractionImages", fields: [attraction_id], references: [id])
+  user          User?           @relation("UserImages", fields: [user_id], references: [id])
+
+  @@map("images")
+}
