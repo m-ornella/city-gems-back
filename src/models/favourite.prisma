@@ -1,12 +1,12 @@
 model Favourite {
   user_id       Int
-  restaurant_id Int
+  attraction_id Int
   created_at    DateTime @default(now())
 
   user         User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  restaurant   Restaurant @relation(fields: [restaurant_id], references: [id], onDelete: Cascade)
+  attraction   Attraction @relation(fields: [attraction_id], references: [id], onDelete: Cascade)
 
-  @@id([user_id, restaurant_id])
+  @@id([user_id, attraction_id])
   @@map("favourites")
 
 }

@@ -8,6 +8,7 @@ model User {
   
   revokedTokens   RevokedToken[]
   Favourite       Favourite[]
+  images          Image[]        @relation("UserImages")
 
   @@map("users")
 }

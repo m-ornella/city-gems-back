@@ -3,7 +3,7 @@ FROM node:21
 WORKDIR /src
 
 # Copy package.json and yarn.lock files first to leverage Docker cache
-COPY package*.json yarn.lock ./
+COPY package.json yarn.lock ./
 
 # Install dependencies
 RUN yarn install
@@ -16,6 +16,14 @@ RUN yarn prisma generate --schema=src/models
 
 # Build the project
 RUN yarn build
+
+# FROM base AS test
+
+# Run tests
+# RUN yarn test
+
+# Define the final stage
+# FROM base AS final
 
 EXPOSE 3000
 
