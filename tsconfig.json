@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
     /* Basic Options */
-    "target": "es2016",                               
-    "module": "commonjs",                             
-    "rootDir": "./src",                                
-    "outDir": "./dist",                               
-    "strict": true,                                   
-    "esModuleInterop": true,                          
-    "forceConsistentCasingInFileNames": true,         
-    "skipLibCheck": true,                             
+    "target": "es2016",
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
 
     /* Additional Options */
-    "baseUrl": ".",                                   
+    "baseUrl": ".",
     "paths": {
       "#app": ["./node_modules/nuxt/dist/app"],
       "#app/*": ["./node_modules/nuxt/dist/app/*"],
@@ -26,11 +26,12 @@
       "#nuxt": ["./node_modules/nuxt/dist"],
       "#nuxt/*": ["./node_modules/nuxt/dist/*"]
     },
-    "types": ["@nuxt/types"]
+    "types": ["jest", "@nuxt/types"]
   },
   "include": [
     "src/**/*.ts",
-    "nuxt.config.ts"
+    "nuxt.config.ts",
+    "src/tests/**/*.ts"
   ],
   "exclude": [
     "node_modules",

@@ -57,7 +57,7 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
     }
 
 
-    req.body.userId = user.id;
+    req.body.userId = user.id, user.firstName, user.lastName;
     
     next();
   } catch (error) {

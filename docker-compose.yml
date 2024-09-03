@@ -10,7 +10,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     healthcheck:
-      test: mysqladmin ping -h mysql --user=$$MYSQL_USER --password=$$MYSQL_ROOT_PASSWORD
+      test: mysqladmin ping -h localhost --user=$$MYSQL_USER --password=$$MYSQL_ROOT_PASSWORD
       interval: 30s
       timeout: 12s
       retries: 10  
@@ -26,6 +26,20 @@ services:
       JWT_REFRESH_KEY: ${JWT_KEY}
     depends_on:
       - citygems_db
-    
+
+  # test:
+  #   build:
+  #     context: .
+  #     target: test
+  #   depends_on:
+  #     - citygems_db
+  #   environment:
+  #     DATABASE_URL: ${DATABASE_URL}
+  #     DB_HOST: citygems_db
+  #     JWT_KEY: ${JWT_KEY}
+  #     JWT_REFRESH_KEY: ${JWT_KEY}
+  #   ports:
+  #     - "3005:3000"  
+
 volumes:
   db_data:
