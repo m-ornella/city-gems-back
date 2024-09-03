@@ -35,7 +35,9 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!!!!');
 });
 
-app.listen(port, (err?: Error) => {
+export default app;
+
+app.listen(port,'0.0.0.0', (err?: Error) => {
   if (err) {
     console.error('Error starting server:', err);
   } else {

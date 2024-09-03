@@ -13,17 +13,17 @@ if (!jwtRefreshKey) {
   throw new Error('JWT_REFRESH_KEY is not defined in environment variables');
 }
 
-// Generate Access Token
+
 export const generateAccessToken = (userId: number) => {
   return jwt.sign({ userId }, jwtKey, { expiresIn: '5m' });
 };
 
-// Generate Refresh Token
+
 export const generateRefreshToken = (userId: number, jti: string) => {
   return jwt.sign({ userId, jti }, jwtRefreshKey, { expiresIn: '8h' });
 };
 
-// Validate Token
+
 export const validateToken = (token: string, secret: string) => {
   try {
     return jwt.verify(token, secret) as jwt.JwtPayload;
@@ -32,7 +32,7 @@ export const validateToken = (token: string, secret: string) => {
   }
 };
 
-// Revoke Token
+// blaclist token -- not used yet
 export async function revokeToken(token: string, userId: number, expires_at: Date) {
   try {
   
