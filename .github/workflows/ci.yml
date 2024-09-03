@@ -5,9 +5,9 @@ name: CI Workflow
 
 on:
   push:
-    branches: [ "ci-workflow" ]
+    branches: [ "ci-workflow", "main" ]
   pull_request:
-    branches: [ "ci-workflow" ]
+    branches: [ "ci-workflow", "main" ]
 
 jobs:
   build-and-test:
