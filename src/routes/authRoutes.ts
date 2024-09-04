@@ -5,7 +5,7 @@ import { logoutUser } from '../controllers/authController';
 
 const router = Router();
 
-router.post('/register', registerUser);
+router.post('/register', registerUser, generateTokensMiddleware);
 router.post('/login', loginUser, generateTokensMiddleware);
 router.post('/logout', logoutUser);
 

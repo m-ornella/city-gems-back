@@ -4,7 +4,6 @@ import { authenticateUser } from '../middleware/auth';
 
 const router = Router();
 
-// Routes for handling attraction categories
 router.get('/attraction-categories', getAttractionCategories);
 router.post('/attraction-categories', authenticateUser, createAttractionCategory);
 
