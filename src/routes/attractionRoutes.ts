@@ -7,6 +7,6 @@ const router = Router();
 
 router.get('/attractions', getAttractions);
 router.get('/attractions/:id', getAttractionById);
-router.post('/attractions', upload.array('images'), authenticateUser, createAttraction);
+router.post('/attractions', upload.array('images', 10), authenticateUser, createAttraction);
 
 export default router;

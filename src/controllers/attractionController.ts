@@ -23,6 +23,9 @@ export const createAttraction = async (req: Request, res: Response) => {
 
   try {
   
+    console.log('Request Body:', req.body);
+    console.log('Uploaded Files:', req.files)
+    
     const imageUrls = (req.files as Express.Multer.File[]).map(file => file.path) || [];
 
  
@@ -36,7 +39,7 @@ export const createAttraction = async (req: Request, res: Response) => {
         address,
         category_id: categoryIdInt,
         budget,
-        website_link,
+        website_link: website_link || null,
         images: {
           create: imageUrls.map(url => ({
             url,
