@@ -38,11 +38,15 @@ app.get('/', (req: Request, res: Response) => {
 
 export default app;
 
-app.listen(port,'0.0.0.0', (err?: Error) => {
-  if (err) {
-    console.error('Error starting server:', err);
-  } else {
-    console.log(`Example app listening on port ${port}`);
-    console.log('Routes mounted');
-  }
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, '0.0.0.0', (err?: Error) => {
+    if (err) {
+      console.error('Error starting server:', err);
+    } else {
+      console.log(`Example app listening on port ${port}`);
+      console.log('Routes mounted');
+    }
+  });
+} else {
+  console.log('Server is not started in test environment');
+}

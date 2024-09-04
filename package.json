@@ -18,7 +18,7 @@
     "build": "tsc",
     "prisma:generate": "prisma generate",
     "dev": "ts-node-dev src/server.ts",
-    "test": "PORT=3008 jest"
+    "test": "NODE_ENV=test jest --forceExit"
     
   },
   "devDependencies": {
