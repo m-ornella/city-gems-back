@@ -3,7 +3,7 @@ import { prisma } from '../server';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { validateToken, revokeToken, isTokenRevoked } from '../utils/token';
-import { generateAccessToken } from '../utils/token';
+import { generateTokensMiddleware } from '../middleware/token';
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
@@ -57,16 +57,11 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
       return res.status(400).json({ error: 'Invalid email or password' });
     }
 
+    req.body.userId = user.id;
+    req.body.firstName = user.firstName;
+    req.body.lastName = user.lastName;
 
-    req.body.userId = user.id, user.firstName, user.lastName;
-    const accessToken = generateAccessToken(user.id);
-    return res.status(200).json({
-      accessToken,
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName
-    });
-    next();
+    return generateTokensMiddleware(req, res);
   } catch (error) {
     console.error('Error during login:', error);
     return res.status(500).json({ error: 'Internal server error' });

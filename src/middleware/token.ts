@@ -6,6 +6,8 @@ import { generateAccessToken, generateRefreshToken, validateToken } from '../uti
 export const generateTokensMiddleware = (req: Request, res: Response) => {
   try {
     const userId = req.body.userId;
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
 
     if (!userId) {
       return res.status(400).json({ error: 'User ID not found' });
@@ -15,7 +17,14 @@ export const generateTokensMiddleware = (req: Request, res: Response) => {
     const accessToken = generateAccessToken(userId);
     const refreshToken = generateRefreshToken(userId, jti);
 
-    res.json({ accessToken, refreshToken });
+    res.json({
+      accessToken,
+      refreshToken,
+      id: userId,
+      firstName,
+      lastName,
+    });
+    
   } catch (error) {
     console.error('Error generating tokens:', error);
     res.status(500).json({ error: 'Internal server error' });
