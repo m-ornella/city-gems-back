@@ -28,7 +28,7 @@ app.use(cors(corsOptions));
 // Mounting routes
 app.use('/api', authRoutes);
 app.use('/api', userRoutes);
-app.use('/api', attractionRoutes);
+app.use('/api',authenticateUser, attractionRoutes);
 app.use('/api', attractionCategoryRoutes);
 app.use('/api', authenticateUser, favouriteRoutes);
 

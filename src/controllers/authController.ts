@@ -3,6 +3,7 @@ import { prisma } from '../server';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { validateToken, revokeToken, isTokenRevoked } from '../utils/token';
+import { generateAccessToken } from '../utils/token';
 
 export const registerUser = async (req: Request, res: Response) => {
   try {
@@ -58,7 +59,13 @@ export const loginUser = async (req: Request, res: Response, next: NextFunction)
 
 
     req.body.userId = user.id, user.firstName, user.lastName;
-    
+    const accessToken = generateAccessToken(user.id);
+    return res.status(200).json({
+      accessToken,
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName
+    });
     next();
   } catch (error) {
     console.error('Error during login:', error);
