@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { prisma } from '../server';
 import { upload } from '../utils/multerConfig';
-
+import path from 'path';
 
 export const getAttractions = async (req: Request, res: Response) => {
     try {
@@ -26,7 +26,7 @@ export const createAttraction = async (req: Request, res: Response) => {
     console.log('Request Body:', req.body);
     console.log('Uploaded Files:', req.files)
     
-    const imageUrls = (req.files as Express.Multer.File[]).map(file => file.path) || [];
+    const imageUrls = (req.files as Express.Multer.File[]).map(file => `/uploads/${path.basename(file.path)}`) || [];
 
  
     const { name, address, category_id, budget, website_link } = req.body;
@@ -41,9 +41,7 @@ export const createAttraction = async (req: Request, res: Response) => {
         budget,
         website_link: website_link || null,
         images: {
-          create: imageUrls.map(url => ({
-            url,
-          })),
+          create: imageUrls.map(url => ({ url })),
         },
       },
       include: {

@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import 'dotenv/config';
 import cors from 'cors';
+import path from 'path';
 import { PrismaClient } from "@prisma/client";
 import authRoutes from './routes/authRoutes';
 import userRoutes from './routes/userRoutes';
@@ -15,6 +16,10 @@ const app = express();
 const port = 3000;
 
 app.use(express.json());
+
+const uploadDir = path.resolve(__dirname, '../uploads');
+app.use('/uploads', express.static(uploadDir));
+
 
 const corsOptions = {
   origin: 'http://localhost:3000',

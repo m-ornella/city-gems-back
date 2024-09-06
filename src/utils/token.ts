@@ -32,7 +32,6 @@ export const validateToken = (token: string, secret: string) => {
   }
 };
 
-// blaclist token -- not used yet
 export async function revokeToken(token: string, userId: number, expires_at: Date) {
   try {
   
