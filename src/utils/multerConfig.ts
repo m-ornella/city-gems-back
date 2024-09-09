@@ -2,7 +2,8 @@ import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
 
-const uploadDir = path.resolve(__dirname, '../uploads');
+const uploadDir = path.resolve(__dirname, '../../../uploads');
+console.log('Image upload directory:', uploadDir);
 
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });

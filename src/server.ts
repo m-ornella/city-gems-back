@@ -17,8 +17,7 @@ const port = 3000;
 
 app.use(express.json());
 
-const uploadDir = path.resolve(__dirname, '../uploads');
-app.use('/uploads', express.static(uploadDir));
+app.use('/uploads', express.static(path.join(__dirname, '../../../uploads')));
 
 
 const corsOptions = {
