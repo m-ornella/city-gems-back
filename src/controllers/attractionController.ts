@@ -9,6 +9,11 @@ export const getAttractions = async (req: Request, res: Response) => {
             include: {
                 images: true, 
             },
+             orderBy: {
+        Favourite: {
+          _count: 'desc',
+        },
+      },
         });
         return res.status(200).json(attractions);
     } catch (error) {
