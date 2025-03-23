@@ -17,14 +17,6 @@ RUN yarn prisma generate --schema=src/models
 # Build the project
 RUN yarn build
 
-# FROM base AS test
-
-# Run tests
-# RUN yarn test
-
-# Define the final stage
-# FROM base AS final
-
 EXPOSE 3000
 
 CMD ["yarn", "start"]

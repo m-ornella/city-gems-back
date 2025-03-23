@@ -26,21 +26,7 @@ services:
       JWT_REFRESH_KEY: ${JWT_KEY}
       NODE_ENV: development
     depends_on:
-      - citygems_db
-
-  # test:
-  #   build:
-  #     context: .
-  #     target: test
-  #   depends_on:
-  #     - citygems_db
-  #   environment:
-  #     DATABASE_URL: ${DATABASE_URL}
-  #     DB_HOST: citygems_db
-  #     JWT_KEY: ${JWT_KEY}
-  #     JWT_REFRESH_KEY: ${JWT_KEY}
-  #   ports:
-  #     - "3005:3000"  
+      - citygems_db 
 
 volumes:
   db_data:
