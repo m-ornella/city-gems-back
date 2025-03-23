@@ -4,6 +4,12 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+#### Start with docker(recommnended)
+
+- Make sure docker desktop is started
+- run docker compose up -d
+--> this will start both the api and the database
+
 ## Setup
 
 Make sure to install the dependencies:
